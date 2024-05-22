@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import exp from 'constants';
 
 test.describe('Pulpit', () => {
   test('Fast transfer', async ({ page }) => {
@@ -25,6 +24,7 @@ test.describe('Pulpit', () => {
     await page.getByRole('button', { name: 'wykonaj' }).click();
     await page.getByTestId('close-button').click();
 
+    // Assert
     await expect(page.locator('#show_messages')).toHaveText(message);
   });
 
