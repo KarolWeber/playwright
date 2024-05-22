@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Pulpit', () => {
   test.beforeEach(async ({ page }) => {
@@ -7,10 +8,12 @@ test.describe('Pulpit', () => {
     const userPassword = loginData.userPassword;
     
     await page.goto('/');
-    await page.getByTestId('login-input').fill(userLogin);
-    await page.getByTestId('password-input').fill(userPassword);
-    await page.getByTestId('login-button').click();
+    const loginPage = new LoginPage(page)
+    await loginPage.loginInput.fill(userLogin)
+    await loginPage.passwordInput.fill(userPassword)
+    await loginPage.loginButton.click()
   })
+  
   test('Fast transfer', async ({ page }) => {
     // Arrange
     const revicer = '2';
