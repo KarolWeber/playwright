@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { loginData } from '../test-data/login.data';
 
 test.describe('Pulpit', () => {
   test.beforeEach(async ({ page }) => {
-    const userLogin = 'testuser';
-    const userPassword = 'test1234';
+    const userLogin = loginData.userLogin;
+    const userPassword = loginData.userPassword;
     await page.goto('/');
     await page.getByTestId('login-input').fill(userLogin);
     await page.getByTestId('password-input').fill(userPassword);
@@ -52,7 +53,7 @@ test.describe('Pulpit', () => {
     const amount = '150';
     const initialBalance = await page.locator('#money_value').innerText();
     const expectedBalance = Number(initialBalance) - Number(amount)
-    
+
     // Act
     await page.locator('#widget_1_topup_receiver').selectOption(revicer);
     await page.locator('#widget_1_topup_amount').fill(amount);

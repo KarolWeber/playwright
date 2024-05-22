@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { loginData } from '../test-data/login.data';
 
 test.describe('Login', () => {
   test.beforeEach(async ({ page }) => {
@@ -7,8 +8,8 @@ test.describe('Login', () => {
 
   test('Correct credentials', async ({ page }) => {
     // Arrange
-    const userLogin = 'testuser';
-    const userPassword = 'test1234';
+    const userLogin = loginData.userLogin;
+    const userPassword = loginData.userPassword;
     const userName = 'Jan Demobankowy';
 
     // Act
@@ -35,7 +36,7 @@ test.describe('Login', () => {
 
   test('Validation -> No password', async ({ page }) => {
     // Arrange
-    const userLogin = 'testuser';
+    const userLogin = loginData.userLogin;
     const errorLogin = 'pole wymagane';
 
     // Act
@@ -49,7 +50,7 @@ test.describe('Login', () => {
 
   test('Inorrect credentials -> Invalid password', async ({ page }) => {
     // Arrange
-    const userLogin = 'testuser';
+    const userLogin = loginData.userLogin;
     const userPassword = 'test';
     const errorLogin = 'hasło ma min. 8 znaków';
 
