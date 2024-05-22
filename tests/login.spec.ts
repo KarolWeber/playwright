@@ -14,13 +14,13 @@ test.describe('Login', () => {
     const userName = 'Jan Demobankowy';
 
     // Act
-    const loginPage = new LoginPage(page)
-    await loginPage.loginInput.fill(userLogin)
-    await loginPage.passwordInput.fill(userPassword)
-    await loginPage.loginButton.click()
+    const loginPage = new LoginPage(page);
+    await loginPage.loginInput.fill(userLogin);
+    await loginPage.passwordInput.fill(userPassword);
+    await loginPage.loginButton.click();
 
     // Assert
-    await test.expect(page.getByTestId('user-name')).toHaveText(userName);
+    await test.expect(loginPage.userName).toHaveText(userName);
   });
 
   test('Validation -> Invalid username', async ({ page }) => {
@@ -29,11 +29,12 @@ test.describe('Login', () => {
     const errorLogin = 'identyfikator ma min. 8 znaków';
 
     // Act
-    await page.getByTestId('login-input').fill(userLogin);
-    await page.getByTestId('login-input').blur();
+    const loginPage = new LoginPage(page)
+    await loginPage.loginInput.fill(userLogin);
+    await loginPage.loginInput.blur();
 
     // Assert
-    await test.expect(page.getByTestId('error-login-id')).toHaveText(errorLogin);
+    await test.expect(loginPage.loginError).toHaveText(errorLogin);
   });
 
   test('Validation -> No password', async ({ page }) => {
@@ -42,12 +43,13 @@ test.describe('Login', () => {
     const errorLogin = 'pole wymagane';
 
     // Act
-    await page.getByTestId('login-input').fill(userLogin);
-    await page.getByTestId('password-input').click();
-    await page.getByTestId('password-input').blur();
+    const loginPage = new LoginPage(page)
+    await loginPage.loginInput.fill(userLogin);
+    await loginPage.passwordInput.click()
+    await loginPage.passwordInput.blur();
 
     // Assert
-    await test.expect(page.getByTestId('error-login-password')).toHaveText(errorLogin);
+    await test.expect(loginPage.passwordError).toHaveText(errorLogin);
   });
 
   test('Inorrect credentials -> Invalid password', async ({ page }) => {
@@ -57,11 +59,12 @@ test.describe('Login', () => {
     const errorLogin = 'hasło ma min. 8 znaków';
 
     // Act
-    await page.getByTestId('login-input').fill(userLogin);
-    await page.getByTestId('password-input').fill(userPassword);
-    await page.getByTestId('password-input').blur();
+    const loginPage = new LoginPage(page);
+    await loginPage.loginInput.fill(userLogin);
+    await loginPage.passwordInput.fill(userPassword);
+    await loginPage.passwordInput.blur();
 
     // Assert
-    await test.expect(page.getByTestId('error-login-password')).toHaveText(errorLogin);
+    await test.expect(loginPage.passwordError).toHaveText(errorLogin);
   });
 });

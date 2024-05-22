@@ -6,7 +6,7 @@ test.describe('Payments', () => {
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
     await page.goto('/');
-    const loginPage = new LoginPage(page)
+    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
