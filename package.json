@@ -8,7 +8,9 @@
     "test:pulpit": "npm run test tests/pulpit.spec.ts",
     "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed",
     "test:login": "npm run test tests/login.spec.ts",
-    "test:login:headed": "npm run test tests/login.spec.ts -- --headed"
+    "test:login:headed": "npm run test tests/login.spec.ts -- --headed",
+    "test:payment": "npm run test tests/payment.spec.ts",
+    "test:payment:headed": "npm run test tests/payment.spec.ts -- --headed"
   },
   "keywords": [],
   "author": "",

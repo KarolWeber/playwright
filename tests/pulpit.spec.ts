@@ -7,9 +7,9 @@ test.describe('Pulpit', () => {
   test.beforeEach(async ({ page }) => {
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
+    const loginPage = new LoginPage(page);
     
     await page.goto('/');
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
@@ -21,9 +21,9 @@ test.describe('Pulpit', () => {
     const amount = '150';
     const title = 'Transfer';
     const message = `Przelew wykonany! Chuck Demobankowy - ${amount},00PLN - ${title}`;
+    const puplitPage = new PulpitPage(page);
 
     // Act
-    const puplitPage = new PulpitPage(page);
     await puplitPage.quickPaymentRecivier.selectOption(revicer);
     await puplitPage.quickPaymentAmount.fill(amount);
     await puplitPage.quickPaymentTitle.fill(title);
@@ -40,9 +40,9 @@ test.describe('Pulpit', () => {
     const revicer = '500 xxx xxx';
     const amount = '150';
     const message = `Doładowanie wykonane! ${amount},00PLN na numer ${revicer}`;
+    const pulpitPage = new PulpitPage(page);
 
     // Act
-    const pulpitPage = new PulpitPage(page);
     await pulpitPage.phoneTopUpReciever.selectOption(revicer);
     await pulpitPage.phoneTopUpAmount.fill(amount);
     await pulpitPage.phoneTopUpAgreementCheckbox.click();
@@ -56,13 +56,13 @@ test.describe('Pulpit', () => {
 
   test('Correct balance after successful phone top up -> ', async ({ page }) => {
     // Arrange
+    const pulpitPage = new PulpitPage(page);
     const revicer = '500 xxx xxx';
     const amount = '150';
-    const initialBalance = await page.locator('#money_value').innerText();
+    const initialBalance = await pulpitPage.pulpitMoneyValue.innerText();
     const expectedBalance = Number(initialBalance) - Number(amount)
 
     // Act
-    const pulpitPage = new PulpitPage(page);
     await pulpitPage.phoneTopUpReciever.selectOption(revicer);
     await pulpitPage.phoneTopUpAmount.fill(amount);
     await pulpitPage.phoneTopUpAgreementCheckbox.click();

@@ -9,12 +9,12 @@ test.describe('Login', () => {
 
   test('Correct credentials', async ({ page }) => {
     // Arrange
+    const loginPage = new LoginPage(page);
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
     const userName = 'Jan Demobankowy';
 
     // Act
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
@@ -25,11 +25,11 @@ test.describe('Login', () => {
 
   test('Validation -> Invalid username', async ({ page }) => {
     // Arrange
+    const loginPage = new LoginPage(page)
     const userLogin = 'test';
     const errorLogin = 'identyfikator ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page)
     await loginPage.loginInput.fill(userLogin);
     await loginPage.loginInput.blur();
 
@@ -39,11 +39,11 @@ test.describe('Login', () => {
 
   test('Validation -> No password', async ({ page }) => {
     // Arrange
+    const loginPage = new LoginPage(page)
     const userLogin = loginData.userLogin;
     const errorLogin = 'pole wymagane';
 
     // Act
-    const loginPage = new LoginPage(page)
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.click()
     await loginPage.passwordInput.blur();
@@ -54,12 +54,12 @@ test.describe('Login', () => {
 
   test('Inorrect credentials -> Invalid password', async ({ page }) => {
     // Arrange
+    const loginPage = new LoginPage(page);
     const userLogin = loginData.userLogin;
     const userPassword = 'test';
     const errorLogin = 'hasło ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.passwordInput.blur();
