@@ -11,6 +11,7 @@
 - run test without browser GUI => `npx playwrigth test`
 - run test with browser GUI => `npx playwrigth test --headed`
 - view report => `npx playwritht show-report`
+- trace zip run (must be in proper folder) => `npx playwright show-trace trace.zip` 
 
 ## Playwright snippets
 
@@ -27,6 +28,30 @@ describe('Test suite', () => {});
 ```
 
 - run selected test(s): `test.only`
+
+## Playwright config
+- congif file => `playwright.confir.js
+  - disable browser:
+    ```javascript
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
+    ```
+
+  - enable video on fail:
+    ```javascript
+    use: {
+      video: 'retain-on-failure',
+    },
+    ```
+
+    - enable Trace Viever on fail
+    ```javascript
+    use: {
+      trace: 'retain-on-failure',
+    },
+    ```
 
 ### Prettier
 
