@@ -7,19 +7,17 @@ import { SideMenuComponent } from '../components/side-menu.component';
 
 test.describe('Payments', () => {
   let paymentPage: PaymentPage;
+  let sideMenu: SideMenuComponent;
 
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
-    const sideMenu = new SideMenuComponent(page);
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
+    sideMenu = new SideMenuComponent(page);
     paymentPage = new PaymentPage(page);
 
     await page.goto('/');
-    await loginPage.loginInput.fill(userLogin);
-    await loginPage.passwordInput.fill(userPassword);
-    await loginPage.loginButton.click();
-    await sideMenu.paymentTab.click();
+    await loginPage.login(userLogin, userPassword)
   });
 
   test('Simple payment', async ({ page }) => {
@@ -33,6 +31,7 @@ test.describe('Payments', () => {
     const expectedMessage = `Przelew wykonany! ${amount},00PLN dla ${receiver}`;
 
     // Act
+    await sideMenu.paymentTab.click()
     await paymentPage.transferRecivierInput.fill(`${receiver}`);
     await paymentPage.transferRecivierAccount.fill(`${account}`);
     await paymentPage.transferRecivierAmount.fill(`${amount}`);

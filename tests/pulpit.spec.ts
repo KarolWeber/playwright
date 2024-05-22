@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 import { PulpitPage } from '../pages/pulpit.page';
+import { PassThrough } from 'stream';
 
 test.describe('Pulpit', () => {
   let pulpitPage: PulpitPage;
@@ -13,9 +14,7 @@ test.describe('Pulpit', () => {
     pulpitPage = new PulpitPage(page);
 
     await page.goto('/');
-    await loginPage.loginInput.fill(userLogin);
-    await loginPage.passwordInput.fill(userPassword);
-    await loginPage.loginButton.click();
+    await loginPage.login(userLogin, userPassword);
   })
   
   test('Fast transfer', async ({ page }) => {

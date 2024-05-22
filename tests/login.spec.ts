@@ -12,15 +12,12 @@ test.describe('Login', () => {
 
   test('Correct credentials', async ({ page }) => {
     // Arrange
-    
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
     const userName = 'Jan Demobankowy';
 
     // Act
-    await loginPage.loginInput.fill(userLogin);
-    await loginPage.passwordInput.fill(userPassword);
-    await loginPage.loginButton.click();
+    loginPage.login(userLogin, userPassword)
 
     // Assert
     await test.expect(loginPage.userName).toHaveText(userName);
