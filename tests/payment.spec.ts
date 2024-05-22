@@ -3,10 +3,12 @@ import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 import { PaymentPage } from '../pages/payment.page';
 import { PulpitPage } from '../pages/pulpit.page';
+import { SideMenuComponent } from '../components/side-menu.component';
 
 test.describe('Payments', () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const sideMenu = new SideMenuComponent(page);
     const paymentPage = new PaymentPage(page);
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
@@ -15,7 +17,7 @@ test.describe('Payments', () => {
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
-    await paymentPage.paymentTab.click();
+    await sideMenu.paymentTab.click();
   });
 
   test('Simple payment', async ({ page }) => {
