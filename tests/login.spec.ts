@@ -20,7 +20,7 @@ test.describe('Login', () => {
     await test.expect(page.getByTestId('user-name')).toHaveText(userName);
   });
 
-  test('Inorrect credentials -> Invalid username', async ({ page }) => {
+  test('Validation -> Invalid username', async ({ page }) => {
     // Arrange
     const userLogin = 'test';
     const errorLogin = 'identyfikator ma min. 8 znaków';
@@ -33,7 +33,7 @@ test.describe('Login', () => {
     await test.expect(page.getByTestId('error-login-id')).toHaveText(errorLogin);
   });
 
-  test('Inorrect credentials -> No password', async ({ page }) => {
+  test('Validation -> No password', async ({ page }) => {
     // Arrange
     const userLogin = 'testuser';
     const errorLogin = 'pole wymagane';
