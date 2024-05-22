@@ -30,9 +30,7 @@ test.describe('Login', () => {
     await page.getByTestId('login-input').blur();
 
     // Assert
-    await test
-      .expect(page.getByTestId('error-login-id'))
-      .toHaveText(errorLogin);
+    await test.expect(page.getByTestId('error-login-id')).toHaveText(errorLogin);
   });
 
   test('Inorrect credentials -> No password', async ({ page }) => {
@@ -48,9 +46,7 @@ test.describe('Login', () => {
     await page.getByTestId('password-input').blur();
 
     // Assert
-    await test
-      .expect(page.getByTestId('error-login-password'))
-      .toHaveText(errorLogin);
+    await test.expect(page.getByTestId('error-login-password')).toHaveText(errorLogin);
   });
 
   test('Inorrect credentials -> Invalid password', async ({ page }) => {
@@ -67,8 +63,6 @@ test.describe('Login', () => {
     await page.getByTestId('password-input').blur();
 
     // Assert
-    await test
-      .expect(page.getByTestId('error-login-password'))
-      .toHaveText(errorLogin);
+    await test.expect(page.getByTestId('error-login-password')).toHaveText(errorLogin);
   });
 });
