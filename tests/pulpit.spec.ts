@@ -4,11 +4,14 @@ import { LoginPage } from '../pages/login.page';
 import { PulpitPage } from '../pages/pulpit.page';
 
 test.describe('Pulpit', () => {
+  let pulpitPage: PulpitPage;
+  
   test.beforeEach(async ({ page }) => {
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
     const loginPage = new LoginPage(page);
-    
+    pulpitPage = new PulpitPage(page);
+
     await page.goto('/');
     await loginPage.loginInput.fill(userLogin);
     await loginPage.passwordInput.fill(userPassword);
@@ -21,18 +24,17 @@ test.describe('Pulpit', () => {
     const amount = '150';
     const title = 'Transfer';
     const message = `Przelew wykonany! Chuck Demobankowy - ${amount},00PLN - ${title}`;
-    const puplitPage = new PulpitPage(page);
 
     // Act
-    await puplitPage.quickPaymentRecivier.selectOption(revicer);
-    await puplitPage.quickPaymentAmount.fill(amount);
-    await puplitPage.quickPaymentTitle.fill(title);
+    await pulpitPage.quickPaymentRecivier.selectOption(revicer);
+    await pulpitPage.quickPaymentAmount.fill(amount);
+    await pulpitPage.quickPaymentTitle.fill(title);
 
-    await puplitPage.quickPaymentExecuteButton.click();
-    await puplitPage.pulpitCloseButton.click();
+    await pulpitPage.quickPaymentExecuteButton.click();
+    await pulpitPage.pulpitCloseButton.click();
 
     // Assert
-    await expect(puplitPage.pulpitInfoMessage).toHaveText(message);
+    await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
   });
 
   test('Phone top up', async ({ page }) => {

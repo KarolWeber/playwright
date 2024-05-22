@@ -6,12 +6,14 @@ import { PulpitPage } from '../pages/pulpit.page';
 import { SideMenuComponent } from '../components/side-menu.component';
 
 test.describe('Payments', () => {
+  let paymentPage: PaymentPage;
+
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     const sideMenu = new SideMenuComponent(page);
-    const paymentPage = new PaymentPage(page);
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
+    paymentPage = new PaymentPage(page);
 
     await page.goto('/');
     await loginPage.loginInput.fill(userLogin);
