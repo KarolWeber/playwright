@@ -28,7 +28,7 @@ test.describe('Pulpit', () => {
     await expect(page.locator('#show_messages')).toHaveText(message);
   });
 
-  test.only('Phone top up', async ({ page }) => {
+  test('Phone top up', async ({ page }) => {
     // Arrange
     const url = 'https://demo-bank.vercel.app/';
     const userLogin = 'testuser';
