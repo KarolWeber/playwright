@@ -5,6 +5,7 @@ test.describe('Pulpit', () => {
   test.beforeEach(async ({ page }) => {
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
+    
     await page.goto('/');
     await page.getByTestId('login-input').fill(userLogin);
     await page.getByTestId('password-input').fill(userPassword);
