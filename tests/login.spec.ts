@@ -11,7 +11,7 @@ test.describe('Login', () => {
   })
 
   test('Correct credentials',
-    { tag: ["@Login", "@smoke"] },
+    { tag: ["@Login", "@smoke"], annotation: { type: "Acceptance criteria", description: "https://www.link-to-jira-story.com/task-number" } },
     async ({ page }) => {
       // Arrange
       const userLogin = loginData.userLogin;
