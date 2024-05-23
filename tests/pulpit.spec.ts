@@ -17,46 +17,52 @@ test.describe('Pulpit', () => {
     await loginPage.login(userLogin, userPassword);
   })
 
-  test('Fast transfer', async ({ page }) => {
-    // Arrange
-    const receiver = '2';
-    const amount = '150';
-    const title = 'Transfer';
-    const message = `Przelew wykonany! Chuck Demobankowy - ${amount},00PLN - ${title}`;
+  test('Fast transfer',
+    { tag: "@Pulpit" },
+    async ({ page }) => {
+      // Arrange
+      const receiver = '2';
+      const amount = '150';
+      const title = 'Transfer';
+      const message = `Przelew wykonany! Chuck Demobankowy - ${amount},00PLN - ${title}`;
 
-    // Act
+      // Act
 
-    await pulpitPage.qiuckPayment(receiver, amount, title);
-    // Assert
-    await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
-  });
+      await pulpitPage.qiuckPayment(receiver, amount, title);
+      // Assert
+      await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
+    });
 
-  test('Phone top up', async ({ page }) => {
-    // Arrange
-    const receiver = '500 xxx xxx';
-    const amount = '150';
-    const message = `Doładowanie wykonane! ${amount},00PLN na numer ${receiver}`;
-    const pulpitPage = new PulpitPage(page);
+  test('Phone top up',
+    { tag: "@Pulpit" },
+    async ({ page }) => {
+      // Arrange
+      const receiver = '500 xxx xxx';
+      const amount = '150';
+      const message = `Doładowanie wykonane! ${amount},00PLN na numer ${receiver}`;
+      const pulpitPage = new PulpitPage(page);
 
-    // Act
-    pulpitPage.phoneTopUp(receiver, amount);
+      // Act
+      pulpitPage.phoneTopUp(receiver, amount);
 
-    // Assert
-    await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
-  });
+      // Assert
+      await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
+    });
 
-  test('Correct balance after successful phone top up -> ', async ({ page }) => {
-    // Arrange
-    const pulpitPage = new PulpitPage(page);
-    const receiver = '500 xxx xxx';
-    const amount = '150';
-    const initialBalance = await pulpitPage.pulpitMoneyValue.innerText();
-    const expectedBalance = Number(initialBalance) - Number(amount)
+  test('Correct balance after successful phone top up',
+    { tag: "@Pulpit" },
+    async ({ page }) => {
+      // Arrange
+      const pulpitPage = new PulpitPage(page);
+      const receiver = '500 xxx xxx';
+      const amount = '150';
+      const initialBalance = await pulpitPage.pulpitMoneyValue.innerText();
+      const expectedBalance = Number(initialBalance) - Number(amount)
 
-    // Act
-    pulpitPage.phoneTopUp(receiver, amount);
+      // Act
+      pulpitPage.phoneTopUp(receiver, amount);
 
-    // Assert
-    await expect(pulpitPage.pulpitMoneyValue).toHaveText(`${expectedBalance}`);
-  });
+      // Assert
+      await expect(pulpitPage.pulpitMoneyValue).toHaveText(`${expectedBalance}`);
+    });
 });

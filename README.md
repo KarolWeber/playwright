@@ -10,6 +10,7 @@
 - record test => `npx playwright codegen {url}`
 - run test without browser GUI => `npx playwrigth test`
 - run test with browser GUI => `npx playwrigth test --headed`
+- run test with specific tags => `npx playwrigth test --grep "@{tag}"`
 - view report => `npx playwritht show-report`
 - trace zip run (must be in proper folder) => `npx playwright show-trace trace.zip` 
 
