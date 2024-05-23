@@ -32,11 +32,7 @@ test.describe('Payments', () => {
 
     // Act
     await sideMenu.paymentTab.click()
-    await paymentPage.transferRecivierInput.fill(`${receiver}`);
-    await paymentPage.transferRecivierAccount.fill(`${account}`);
-    await paymentPage.transferRecivierAmount.fill(`${amount}`);
-    await paymentPage.transferRecivierTitle.fill(`${title}`);
-    await paymentPage.transferRecivierExecuteButton.click();
+    await paymentPage.cashTransfer(receiver, account, amount, title);
     await puplitPage.pulpitCloseButton.click();
 
     // Assert

@@ -6,7 +6,7 @@ import { PassThrough } from 'stream';
 
 test.describe('Pulpit', () => {
   let pulpitPage: PulpitPage;
-  
+
   test.beforeEach(async ({ page }) => {
     const userLogin = loginData.userLogin;
     const userPassword = loginData.userPassword;
@@ -16,40 +16,30 @@ test.describe('Pulpit', () => {
     await page.goto('/');
     await loginPage.login(userLogin, userPassword);
   })
-  
+
   test('Fast transfer', async ({ page }) => {
     // Arrange
-    const revicer = '2';
+    const receiver = '2';
     const amount = '150';
     const title = 'Transfer';
     const message = `Przelew wykonany! Chuck Demobankowy - ${amount},00PLN - ${title}`;
 
     // Act
-    await pulpitPage.quickPaymentRecivier.selectOption(revicer);
-    await pulpitPage.quickPaymentAmount.fill(amount);
-    await pulpitPage.quickPaymentTitle.fill(title);
 
-    await pulpitPage.quickPaymentExecuteButton.click();
-    await pulpitPage.pulpitCloseButton.click();
-
+    await pulpitPage.qiuckPayment(receiver, amount, title);
     // Assert
     await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
   });
 
   test('Phone top up', async ({ page }) => {
     // Arrange
-    const revicer = '500 xxx xxx';
+    const receiver = '500 xxx xxx';
     const amount = '150';
-    const message = `Doładowanie wykonane! ${amount},00PLN na numer ${revicer}`;
+    const message = `Doładowanie wykonane! ${amount},00PLN na numer ${receiver}`;
     const pulpitPage = new PulpitPage(page);
 
     // Act
-    await pulpitPage.phoneTopUpReciever.selectOption(revicer);
-    await pulpitPage.phoneTopUpAmount.fill(amount);
-    await pulpitPage.phoneTopUpAgreementCheckbox.click();
-
-    await pulpitPage.phoneTopUpExecuteButton.click();
-    await pulpitPage.pulpitCloseButton.click();
+    pulpitPage.phoneTopUp(receiver, amount);
 
     // Assert
     await expect(pulpitPage.pulpitInfoMessage).toHaveText(message);
@@ -58,18 +48,13 @@ test.describe('Pulpit', () => {
   test('Correct balance after successful phone top up -> ', async ({ page }) => {
     // Arrange
     const pulpitPage = new PulpitPage(page);
-    const revicer = '500 xxx xxx';
+    const receiver = '500 xxx xxx';
     const amount = '150';
     const initialBalance = await pulpitPage.pulpitMoneyValue.innerText();
     const expectedBalance = Number(initialBalance) - Number(amount)
 
     // Act
-    await pulpitPage.phoneTopUpReciever.selectOption(revicer);
-    await pulpitPage.phoneTopUpAmount.fill(amount);
-    await pulpitPage.phoneTopUpAgreementCheckbox.click();
-
-    await pulpitPage.phoneTopUpExecuteButton.click();
-    await pulpitPage.pulpitCloseButton.click();
+    pulpitPage.phoneTopUp(receiver, amount);
 
     // Assert
     await expect(pulpitPage.pulpitMoneyValue).toHaveText(`${expectedBalance}`);

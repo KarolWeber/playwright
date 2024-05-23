@@ -12,7 +12,7 @@ export class LoginPage {
 
     userName = this.page.getByTestId('user-name')
 
-    async login (userLogin: string, userPassword: string): Promise<void> {
+    async login(userLogin: string, userPassword: string): Promise<void> {
         await this.loginInput.fill(userLogin);
         await this.passwordInput.fill(userPassword);
         await this.loginButton.click();
