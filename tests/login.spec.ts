@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
+import { loginErrors } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 
 test.describe('Login', () => {
@@ -16,7 +17,7 @@ test.describe('Login', () => {
       // Arrange
       const userLogin = loginData.userLogin;
       const userPassword = loginData.userPassword;
-      const userName = 'Jan Demobankowy';
+      const userName = loginData.userName;
 
       // Act
       loginPage.login(userLogin, userPassword)
@@ -30,7 +31,7 @@ test.describe('Login', () => {
     async ({ page }) => {
       // Arrange
       const userLogin = 'test';
-      const errorLogin = 'identyfikator ma min. 8 znaków';
+      const errorLogin = loginErrors.loginError;
 
       // Act
       await loginPage.loginInput.fill(userLogin);
@@ -45,7 +46,7 @@ test.describe('Login', () => {
     async ({ page }) => {
       // Arrange
       const userLogin = loginData.userLogin;
-      const errorLogin = 'pole wymagane';
+      const errorLogin = loginErrors.fieldRequired;
 
       // Act
       await loginPage.loginInput.fill(userLogin);
@@ -61,7 +62,7 @@ test.describe('Login', () => {
       // Arrange
       const userLogin = loginData.userLogin;
       const userPassword = 'test';
-      const errorLogin = 'hasło ma min. 8 znaków';
+      const errorLogin = loginErrors.passwordError;
 
       // Act
       await loginPage.loginInput.fill(userLogin);

@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
+import { cashTransferData } from '../test-data/payment.data';
 import { LoginPage } from '../pages/login.page';
 import { PaymentPage } from '../pages/payment.page';
 import { PulpitPage } from '../pages/pulpit.page';
@@ -26,10 +27,10 @@ test.describe('Payments', () => {
       // Arrange
       const puplitPage = new PulpitPage(page);
       const paymentPage = new PaymentPage(page);
-      const receiver = 'Test reciver';
-      const amount = '150';
-      const account = '12 3456 7890 1234 5678 9012 3456';
-      const title = 'Test title';
+      const receiver = cashTransferData.receiver;
+      const amount = cashTransferData.account;
+      const account = cashTransferData.account;
+      const title = cashTransferData.title;
       const expectedMessage = `Przelew wykonany! ${amount},00PLN dla ${receiver}`;
 
       // Act
