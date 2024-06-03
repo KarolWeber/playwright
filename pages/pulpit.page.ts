@@ -1,20 +1,23 @@
 import { Page } from "@playwright/test";
+import { dashboard } from "../locators/pulpit";
+import { phoneTopUp } from "../locators/pulpit";
+import { quickPayment } from "../locators/pulpit";
 
 export class PulpitPage {
     constructor(private page: Page) { }
 
-    pulpitInfoMessage = this.page.locator('#show_messages')
-    pulpitMoneyValue = this.page.locator('#money_value')
-    pulpitCloseButton = this.page.getByTestId('close-button')
+    pulpitInfoMessage = this.page.locator(dashboard.message)
+    pulpitMoneyValue = this.page.locator(dashboard.money_value)
+    pulpitCloseButton = this.page.getByTestId(dashboard.close_button)
 
-    quickPaymentRecivier = this.page.locator('#widget_1_transfer_receiver')
-    quickPaymentAmount = this.page.locator('#widget_1_transfer_amount')
-    quickPaymentTitle = this.page.locator('#widget_1_transfer_title')
+    quickPaymentRecivier = this.page.locator(quickPayment.reciever)
+    quickPaymentAmount = this.page.locator(quickPayment.amount)
+    quickPaymentTitle = this.page.locator(quickPayment.title)
     quickPaymentExecuteButton = this.page.getByRole('button', { name: 'wykonaj' })
 
-    phoneTopUpReciever = this.page.locator('#widget_1_topup_receiver')
-    phoneTopUpAmount = this.page.locator('#widget_1_topup_amount')
-    phoneTopUpAgreementCheckbox = this.page.locator('#uniform-widget_1_topup_agreement span')
+    phoneTopUpReciever = this.page.locator(phoneTopUp.reciever)
+    phoneTopUpAmount = this.page.locator(phoneTopUp.amount)
+    phoneTopUpAgreementCheckbox = this.page.locator(phoneTopUp.checkbox)
     phoneTopUpExecuteButton = this.page.getByRole('button', { name: 'doładuj telefon' })
 
     async qiuckPayment(receiver: string, amount: string, title: string): Promise<void> {
